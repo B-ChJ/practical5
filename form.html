@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>메뉴 등록</title>
+    <script src="menu.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 40px auto; }
+        h1 { text-align: center; }
+        label { display: block; margin-top: 15px; }
+        select, input { width: 100%; padding: 8px; margin-top: 5px; }
+        .btn-group { margin-top: 20px; display: flex; gap: 10px; }
+        .btn { flex: 1; padding: 10px; border: none; cursor: pointer; font-size: 16px; }
+        .btn-green { background-color: #4CAF50; color: white; }
+        .btn-gray { background-color: #ccc; color: black; }
+    </style>
 </head>
 <body>
-$END$
+<h1>메뉴 등록</h1>
+<form id="menuForm">
+    <label>메뉴 이름
+        <input type="text" id="name" required>
+    </label>
+    <label>맵기 정도
+        <select id="spicy" required>
+            <option value="">-- 선택 --</option>
+            <option value="순한맛">순한맛</option>
+            <option value="약간매운맛">약간매운맛</option>
+            <option value="매운맛">매운맛</option>
+            <option value="불매운맛">불매운맛</option>
+            <option value="핵매운맛">핵매운맛</option>
+        </select>
+    </label>
+    <label>가격
+        <input type="number" id="price" required>
+    </label>
+    <div class="btn-group">
+<!--        form 제출-->
+        <button type="submit" class="btn btn-green">등록</button>
+<!--        list.html로 이동-->
+        <button type="button" class="btn btn-gray" onclick="window.location.href='list.html'">목록 보기</button>
+    </div>
+</form>
+
+<script>
+    /*form 제출 시 이벤트 처리*/
+    document.getElementById('menuForm').addEventListener('submit', e => submitted(e));
+
+    function submitted(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const spicy = document.getElementById('spicy').value;
+        const price = document.getElementById('price').value;
+
+        addMenu({ name, spicy, price });
+        alert("메뉴가 등록되었습니다!");
+        window.location.href = 'list.html';
+    }
+</script>
 </body>
 </html>

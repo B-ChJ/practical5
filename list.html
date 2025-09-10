@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>메뉴 목록</title>
+    <script src="menu.js"></script>
 </head>
 <body>
-$END$
+<h1>메뉴 목록</h1>
+<table border="1">
+<!--    표 머리행-->
+    <thead>
+    <tr>
+        <th>이름</th>
+        <th>맵기</th>
+        <th>가격</th>
+        <th>기능</th>
+    </tr>
+    </thead>
+    <tbody id="menuTable"></tbody>
+</table>
+<hr>
+<!--form.html로 이동-->
+<button onclick="window.location.href='form.html'">메뉴 등록하기</button>
+
+<script>
+    function renderMenus() {
+        const menus = getMenus();
+        const tableBody = document.getElementById('menuTable');
+        tableBody.innerHTML = '';
+
+        menus.forEach((menu, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML =
+                `<td><input type="text" value="${menu.name}" id="name-${index}"></td>
+            <td><input type="text" value="${menu.spicy}" id="spicy-${index}"></td>
+            <td><input type="number" value="${menu.price}" id="price-${index}"></td>
+            <td>
+                <button onclick="handleUpdate(${index})">수정</button>
+                <button onclick="handleDelete(${index})">삭제</button>
+            </td>`;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function handleUpdate(index) {
+        const name = document.getElementById(`name-${index}`).value;
+        const spicy = document.getElementById(`spicy-${index}`).value;
+        const price = document.getElementById(`price-${index}`).value;
+
+        updateMenu(index, { name, spicy, price });
+        alert("메뉴가 수정되었습니다!");
+        renderMenus();
+    }
+
+    function handleDelete(index) {
+        if (confirm("삭제하시겠습니까?")) {
+            deleteMenu(index);
+            renderMenus();
+        }
+    }
+
+    renderMenus();
+</script>
 </body>
 </html>
